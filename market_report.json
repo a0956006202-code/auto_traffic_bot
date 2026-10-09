@@ -1,11 +1,7 @@
 {
-  "target": "台股熱門成交量排行指標",
-  "timestamp": "2026-10-09 10:14:25",
-  "indicators": {
-    "moving_average_5": 582.5,
-    "moving_average_20": 571.0,
-    "bollinger_band_status": "squeeze_breakout",
-    "signal": "bullish"
-  },
-  "payout_routing": "中華郵政 700 籬仔內郵局 (0902544)"
+    "timestamp": "2026-10-09 10:45:25.525166",
+    "status": "active",
+    "payout_target": "中華郵政 700-0041398-0902544",
+    "estimated_clicks": 1250,
+    "conversion_rate": "3.8%"
 }
