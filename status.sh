@@ -1,20 +1,22 @@
 #!/bin/bash
+cd ~/auto_traffic_bot
+
 echo "=========================================="
-echo "   [+] auto_traffic_bot 系統總體檢表"
+echo "      AUTO TRAFFIC BOT - 系統狀態總覽      "
 echo "=========================================="
-echo "1. 當前專案資料夾狀態："
-git status -s
+echo "1. Git 遠端同步狀態："
+git remote -v
 echo ""
-echo "2. 最近一次部署與執行日誌 (最後 5 行)："
-if [ -f "logs/deploy.log" ]; then
-    tail -n 5 logs/deploy.log
-else
-    echo "尚無部署日誌"
-fi
+echo "2. 最近一次 Git 提交紀錄："
+git log -1 --oneline
 echo ""
-echo "3. 目前的系統自動排程 (Crontab)："
-crontab -l | grep -E "auto_traffic_bot|EmpireMedia"
+echo "3. 目前背景排程 (Crontab) 清單："
+crontab -l
 echo ""
+echo "4. 系統日誌目錄檔案大小："
+du -sh logs/ 2>/dev/null || echo "尚無日誌目錄"
+echo ""
+echo "5. 檔案完整性檢查："
+ls -la
 echo "=========================================="
-echo "   [+] 總體檢完畢，系統運作一切正常！"
-echo "=========================================="
+echo "[+] 系統狀態檢查完畢！"
