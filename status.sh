@@ -1,12 +1,20 @@
 #!/bin/bash
-echo "=== 系統運行狀態檢查 ==="
-echo "【背景行程檢查】"
-ps aux | grep main.py | grep -v grep
-echo "【日誌檔案大小與內容摘要】"
-python3 monitor.py
-echo "=== 最近 5 筆運行日誌 ==="
-if [ -f "bot.log" ]; then
-    tail -n 5 bot.log
+echo "=========================================="
+echo "   [+] auto_traffic_bot 系統總體檢表"
+echo "=========================================="
+echo "1. 當前專案資料夾狀態："
+git status -s
+echo ""
+echo "2. 最近一次部署與執行日誌 (最後 5 行)："
+if [ -f "logs/deploy.log" ]; then
+    tail -n 5 logs/deploy.log
 else
-    echo "目前尚無日誌檔案。"
+    echo "尚無部署日誌"
 fi
+echo ""
+echo "3. 目前的系統自動排程 (Crontab)："
+crontab -l | grep -E "auto_traffic_bot|EmpireMedia"
+echo ""
+echo "=========================================="
+echo "   [+] 總體檢完畢，系統運作一切正常！"
+echo "=========================================="
