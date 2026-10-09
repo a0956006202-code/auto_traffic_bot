@@ -1,20 +1,23 @@
 import time
 import schedule
-import os
-from publisher import generate_and_publish
-
-print("=== 零成本自動流量與變現系統啟動 ===")
-print("金流對接確認：中華郵政(700) 籬仔內郵局 | 帳號：0902544 | 戶名：蕭*凡又")
+import datetime
+from publisher import publish_content
+from analytics.analyzer import analyze_market
+from monitor import check_health
 
 def job():
-    print("正在執行自動化流量與發布任務...")
-    generate_and_publish()
+    print(f"\n[===== 定時任務執行中: {datetime.datetime.now()} =====]")
+    analyze_market()
+    publish_content()
+    check_health()
 
-# 設定每 10 分鐘執行一次
+# 測試立即執行一次
+job()
+
+# 設定每 10 分鐘自動執行
 schedule.every(10).minutes.do(job)
 
-if __name__ == "__main__":
-    print("排程系統已就緒，開始背景監控...")
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+print("=== 零成本自動流量與變現系統 (結合大數據分析) 已啟動 24 小時常駐排程 ===")
+while True:
+    schedule.run_pending()
+    time.sleep(1)
