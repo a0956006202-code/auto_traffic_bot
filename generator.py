@@ -1,20 +1,30 @@
 import os
-import json
 import datetime
+from trending_topics import get_random_topic
 
-def main():
-    print("[*] 啟動自動化流量與內容生成核心...")
+def generate_content():
     os.makedirs("content", exist_ok=True)
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    filename = f"content/post_{timestamp}.txt"
     
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    content_filename = f"content/post_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+    topic = get_random_topic()
     
-    post_text = f"自動化熱門影音內容 - {timestamp}\n精選高流量話題與數據分析，全自動推播中！\n#爆紅影音帝國 #自動化流量"
+    content = f"""
+========================================
+發布時間：{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+內容分類：{topic['category']}
+核心關鍵字：{topic['keyword']}
+----------------------------------------
+這是一篇透過 Termux 自動化流量工廠產出的高流量優化貼文。
+目標平台：全自動分發渠道
+變現閉環：中華郵政導流收益專用通道
+========================================
+"""
     
-    with open(content_filename, "w", encoding="utf-8") as f:
-        f.write(post_text)
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(content.strip())
         
-    print(f"[+] 成功生成新內容: {content_filename}")
+    print(f"[+] 成功生成自動化內容檔案：{filename}")
 
 if __name__ == "__main__":
-    main()
+    generate_content()
