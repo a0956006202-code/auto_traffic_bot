@@ -1,0 +1,16 @@
+{
+  "project_name": "auto_traffic_bot",
+  "payout": {
+    "bank": "中華郵政",
+    "bank_code": "700",
+    "branch": "高雄籬仔內郵局",
+    "branch_no": "0041398",
+    "account": "0902544",
+    "name": "蕭*凡又"
+  },
+  "automation": {
+    "target_platform": "facebook",
+    "page_name": "爆紅影音帝國",
+    "schedule_interval_hours": 4
+  }
+}
