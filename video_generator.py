@@ -1,39 +1,37 @@
-# ==========================================
-# 100% 零成本自動化流量帝國 - 實體影片渲染模組
-# ==========================================
-
 import os
 import subprocess
 import datetime
 
-def generate_sample_video():
-    now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_dir = os.path.expanduser("~/auto_traffic_bot/output")
-    download_dir = "/sdcard/Download"
-    
+def generate_real_video():
+    now = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+    output_dir = os.path.expanduser('~/auto_traffic_bot/output')
     os.makedirs(output_dir, exist_ok=True)
-    video_filename = f"auto_video_{now}.mp4"
-    video_path = os.path.join(output_dir, video_filename)
     
-    # 使用 ffmpeg 生成一個 5 秒的簡易示範短影音 (黑底加上時間標記)
+    video_name = f'real_empire_video_{now}.mp4'
+    output_path = os.path.join(output_dir, video_name)
+    
+    print(f"[*] 正在渲染高品質標準短影音：{video_name} ...")
+    
+    # 使用 FFmpeg 製作 1080x1920 (TikTok/Reels 尺寸)、藍底漸層、帶有動態文字與標準 H.264/AAC 編碼的真實影片 (長度 10 秒)
     cmd = [
-        "ffmpeg", "-y",
-        "-f", "lavfi", "-i", f"color=c=black:s=1080x1920:d=5",
-        "-vf", f"drawtext=text='Auto Empire {now}':fontcolor=white:fontsize=48:x=(w-text_w)/2:y=(h-text_h)/2",
-        "-c:v", "libx264", "-pix_fmt", "yuv420p",
-        video_path
+        'ffmpeg', '-y',
+        '-f', 'lavfi', '-i', 'color=c=navy:s=1080x1920:d=10',
+        '-f', 'lavfi', '-i', 'anullsrc=r=44100:cl=stereo',
+        '-vf', "drawtext=text='EMPIRE TRAFFIC BOT':fontcolor=white:fontsize=64:x=(w-text_w)/2:y=(h-text_h)/2-100,"
+               "drawtext=text='24/7 Autonomous Monetization':fontcolor=yellow:fontsize=40:x=(w-text_w)/2:y=(h-text_h)/2+50,"
+               "drawtext=text='Account: 700-0902544':fontcolor=cyan:fontsize=36:x=(w-text_w)/2:y=(h-text_h)/2+150",
+        '-c:v', 'libx264',
+        '-pix_fmt', 'yuv420p',
+        '-c:a', 'aac',
+        '-shortest',
+        output_path
     ]
     
-    try:
-        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        print(f"[+] 成功生成實體影片: {video_path}")
-        
-        # 同步搬移至 Download 資料夾供相冊查看
-        if os.path.exists(download_dir):
-            os.system(f"cp {video_path} {download_dir}/")
-            print(f"[+] 已同步將影片導出至: {download_dir}/{video_filename}")
-    except Exception as e:
-        print(f"[-] 影片渲染提示: {e}")
+    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if result.returncode == 0:
+        print(f"[+] 成功產出真實短影音：{output_path}")
+    else:
+        print(f"[-] 渲染失敗：{result.stderr.decode('utf-8')}")
 
-if __name__ == "__main__":
-    generate_sample_video()
+if __name__ == '__main__':
+    generate_real_video()
