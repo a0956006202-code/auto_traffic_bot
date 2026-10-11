@@ -2,7 +2,7 @@ import os
 import requests
 import glob
 
-WEBHOOK_URL = "https://hook.eu1.make.com/abc123xyz"
+WEBHOOK_URL = "https://hook.eu1.make.com/mghdqfuempvb8hedn3h67gcwipxtv7bp"
 
 def publish_latest_video():
     list_of_files = glob.glob(os.path.expanduser('~/auto_traffic_bot/output/*.mp4'))
