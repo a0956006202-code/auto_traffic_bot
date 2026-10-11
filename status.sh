@@ -1,22 +1,18 @@
 #!/bin/bash
-cd ~/auto_traffic_bot
+echo "=========================================="
+echo "📊 AUTO TRAFFIC BOT - 系統實時健康看板"
+echo "=========================================="
+echo "[1] 背景服務執行狀態："
+ps aux | grep -E 'auto_cron_pipeline|http.server' | grep -v grep || echo "❌ 警告：背景服務未執行"
+
+echo "------------------------------------------"
+echo "[2] 最新產出的影片檔案："
+ls -lh output/*.mp4 | tail -n 3
+
+echo "------------------------------------------"
+echo "[3] 最新排程日誌紀錄 (cron.log)："
+tail -n 5 cron.log 2>/dev/null || echo "尚無日誌紀錄"
 
 echo "=========================================="
-echo "      AUTO TRAFFIC BOT - 系統狀態總覽      "
+echo "👉 隨時輸入 ./status.sh 即可檢視最新狀態"
 echo "=========================================="
-echo "1. Git 遠端同步狀態："
-git remote -v
-echo ""
-echo "2. 最近一次 Git 提交紀錄："
-git log -1 --oneline
-echo ""
-echo "3. 目前背景排程 (Crontab) 清單："
-crontab -l
-echo ""
-echo "4. 系統日誌目錄檔案大小："
-du -sh logs/ 2>/dev/null || echo "尚無日誌目錄"
-echo ""
-echo "5. 檔案完整性檢查："
-ls -la
-echo "=========================================="
-echo "[+] 系統狀態檢查完畢！"
