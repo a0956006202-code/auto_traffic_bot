@@ -1,16 +1,24 @@
-import os
+# ==========================================
+# 零成本自動化流量與變現工廠 - 日誌與磁碟自動維護中樞
+# ==========================================
 
-def clean_logs():
-    log_file = "bot.log"
-    if os.path.exists(log_file):
-        size_mb = os.path.getsize(log_file) / (1024 * 1024)
-        if size_mb > 10:  # 如果日誌大於 10MB 則自動備份並清空
-            os.rename(log_file, "bot_old.log")
-            print(f"[系統維護] 日誌超過 {size_mb:.2f}MB，已自動執行輪替清理。")
-        else:
-            print(f"[系統維護] 日誌大小正常 ({size_mb:.2f}MB)，無需清理。")
-    else:
-        print("[系統維護] 尚無日誌檔。")
+import os
+import glob
+import datetime
+
+def clean_old_logs():
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_dir = os.path.expanduser("~/auto_traffic_bot/logs")
+    
+    if os.path.exists(log_dir):
+        # 清理超過 7 天的舊 log 檔案
+        for log_file in glob.glob(os.path.join(log_dir, "*.log")):
+            file_time = datetime.datetime.fromtimestamp(os.path.getmtime(log_file))
+            if (datetime.datetime.now() - file_time).days > 7:
+                os.remove(log_file)
+                print(f"[{now}] 已自動清理過期日誌: {log_file}")
+    
+    print(f"[{now}] 報告長官：磁碟與日誌維護已完成，空間保持最優化狀態！")
 
 if __name__ == "__main__":
-    clean_logs()
+    clean_old_logs()

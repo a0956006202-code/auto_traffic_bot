@@ -1,0 +1,24 @@
+name: 100% Free Cloud Automation Backup Engine
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # 每 6 小時自動雲端執行一次
+  workflow_dispatch:
+
+jobs:
+  run-automation-core:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Execute Omni Automation Core
+        run: |
+          python3 omni_automation_core.py
+          python3 security_health_check.py
+          python3 platform_matrix.py
