@@ -1,0 +1,6 @@
+*.log
+logs/
+free_core_status.json
+platform_matrix.json
+security_health_report.json
+analytics_report.json

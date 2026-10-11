@@ -1,0 +1,16 @@
+{
+    "system_name": "Auto Traffic & Monetization Omni-Core",
+    "version": "3.0.0-Production",
+    "target_account": "中華郵政 (700) 0902544",
+    "pillars": [
+        "1. SEO 深度評測文章自動產出與 FAQ 結構化",
+        "2. AI 繪圖、圖庫授權與 POD 商品設計自動變現",
+        "3. 短影音腳本（三段式 Hook）與自動剪輯/發布工作流",
+        "4. 免費線上工具與創作 CTA 一鍵引流矩陣",
+        "5. 每日主流工作流量報告自動寄送至信箱"
+    ],
+    "future_roadmap": [
+        "串接更多主流 AI 代理（如 OpenClaw / Aider 協助背景代碼微調）",
+        "多帳號自動化輪替與流量數據視覺化儀表板"
+    ]
+}
