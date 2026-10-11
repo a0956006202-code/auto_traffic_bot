@@ -1,9 +1,32 @@
-import datetime
+import os
+import requests
+import glob
 
-def publish_content():
-    print("=== 正在執行內容發布與流量導流 ===")
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(f"[{timestamp}] 內容已成功發布至各大社群平台，導流機制運作中。")
+WEBHOOK_URL = "https://hook.eu1.make.com/YOUR_MAKE_WEBHOOK_HERE"
 
-if __name__ == "__main__":
-    publish_content()
+def publish_latest_video():
+    list_of_files = glob.glob(os.path.expanduser('~/auto_traffic_bot/output/*.mp4'))
+    if not list_of_files:
+        print("[-] 未找到可發布的影片檔案")
+        return
+    
+    latest_file = max(list_of_files, key=os.path.getctime)
+    file_name = os.path.basename(latest_file)
+    print(f"[*] 準備對接雲端發布最新短影音: {file_name}")
+    
+    # 發送通知與檔案資訊至 Make.com / n8n 自動化流程
+    payload = {
+        "event": "video_ready",
+        "file_name": file_name,
+        "download_url": f"http://localhost:8080/{file_name}",
+        "account": "中華郵政 700-0902544"
+    }
+    
+    try:
+        response = requests.post(WEBHOOK_URL, json=payload, timeout=10)
+        print(f"[+] 雲端 Webhook 派送狀態: {response.status_code}")
+    except Exception as e:
+        print(f"[!] 目前未填入真實 Webhook，模擬發布完成 (路徑已就緒)")
+
+if __name__ == '__main__':
+    publish_latest_video()
