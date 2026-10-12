@@ -1,10 +1,13 @@
-#!/bin/bash
-# 使用方式: ./fb_post.sh "你想發布的貼文內容"
+#!/data/data/com.termux/files/usr/bin/bash
+MESSAGE="${1:-Trending Video | Best Clips of the Day}"
 
-MESSAGE="${1:-預設自動發文內容}"
+# 全球化吸粉文案與多國熱門標籤
+GLOBAL_CTA="
 
-curl -s -X POST "https://hook.eu1.make.com/vrjxbyrgwg37vth1rblad8kqderlrp1b" \
-     -H "Content-Type: application/json" \
-     -d "{\"text\": \"$MESSAGE\"}"
+👉 Follow '數位影音' for daily viral videos!
+#Viral #Trending #Reels #Shorts #Foryou #VideoOfTheDay #Fyp"
 
-echo -e "\n[+] 貼文請求已發送！"
+FULL_MSG="${MESSAGE}${GLOBAL_CTA}"
+
+# 執行發文並紀錄日誌
+/data/data/com.termux/files/usr/bin/fbpost "$FULL_MSG" >> ~/auto_traffic_bot/logs/fb_schedule.log 2>&1
