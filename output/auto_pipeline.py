@@ -2,7 +2,7 @@ import requests
 import json
 
 # 你的自動化平台 Webhook 接收網址（請將下方網址替換為你在 Make.com / n8n 建立的 Webhook 網址）
-WEBHOOK_URL = "https://hook.eu1.make.com/你的Webhook專屬網址"
+WEBHOOK_URL = "https://hook.eu1.make.com/a61lpbhlr1shguvzjw4eqjny9hfw8mnx"
 
 # 模擬 AI 生成的熱搜爆款文章內容（後續可串接 Gemini API 動態生成）
 article_title = "【全網熱搜】2026最新熱門影視與遊戲情報解析"
